@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Video Upload</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        video { width: 100%; margin-top: 10px; }
+        .comments { margin-top: 10px; text-align: left; }
+        .comment-box { width: 100%; padding: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload & Watch Videos</h2>
+        <input type="file" id="videoUpload" accept="video/*">
+        <button onclick="uploadVideo()">Upload Video</button>
+        <br><br>
+        <video id="videoPlayer" controls></video>
+        <div class="comments">
+            <h3>Comments</h3>
+            <input type="text" id="commentInput" class="comment-box" placeholder="Add a comment...">
+            <button onclick="addComment()">Post</button>
+            <ul id="commentList"></ul>
+        </div>
+    </div>
+
+    <script>
+        function uploadVideo() {
+            let file = document.getElementById('videoUpload').files[0];
+            if (file) {
+                let url = URL.createObjectURL(file);
+                document.getElementById('videoPlayer').src = url;
+            } else {
+                alert("Please select a video file.");
+            }
+        }
+
+        function addComment() {
+            let commentInput = document.getElementById('commentInput');
+            let commentText = commentInput.value;
+            if (commentText.trim() !== "") {
+                let commentList = document.getElementById('commentList');
+                let newComment = document.createElement('li');
+                newComment.textContent = commentText;
+                commentList.appendChild(newComment);
+                commentInput.value = "";
+            }
+        }
+    </script>
+</body>
+</html>
